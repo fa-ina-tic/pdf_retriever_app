@@ -192,7 +192,7 @@ def main(cfg):
 
 
 def load_config():
-    with open("../config.yaml", 'r') as f:
+    with open("./config.yaml", 'r') as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
     return cfg
 
