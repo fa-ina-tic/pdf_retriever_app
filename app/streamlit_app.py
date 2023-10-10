@@ -108,6 +108,9 @@ class Renderer():
             if submit_button:
                 st.session_state.embedfunc = user_embeddings
                 st.session_state.vectordb = user_vectorstore
+            
+            st.write(f"You selected: {st.session_state.embedfunc}")
+            st.write(f"You selected: {st.session_state.vectordb}")
 
     def elem_word_count_dashboard(self):
         st.markdown("글자 수 (단위: 토큰 / 최대: 4097)")
