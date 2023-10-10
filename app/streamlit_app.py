@@ -28,9 +28,9 @@ from streamlit_extras.add_vertical_space import add_vertical_space
 from PyPDF2 import PdfReader
 
 import constants as const
-import chain
-import model
-import utils
+from chain import Chain
+from model import Retriever
+from utils import Utils
 
 class Renderer():
     def __init__(self, cfg):
