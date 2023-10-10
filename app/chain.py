@@ -22,6 +22,7 @@ from model import Retriever
 
 class Chain():
     def __init__(self, cfg, state, embeddings, vectordb):
+        super().__init__()
         self.cfg = cfg
         self.embeddings = embeddings
         self.vectordb = vectordb
