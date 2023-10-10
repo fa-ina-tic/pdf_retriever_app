@@ -7,3 +7,4 @@ streamlit-extras==0.3.4
 python-dotenv
 faiss-cpu
 openai
+constants
