@@ -20,9 +20,8 @@ from model import Retriever
 
 
 
-class Chain():
+class Chain(Retriever):
     def __init__(self, cfg, state, embeddings, vectordb):
-        super().__init__()
         self.cfg = cfg
         self.embeddings = embeddings
         self.vectordb = vectordb
