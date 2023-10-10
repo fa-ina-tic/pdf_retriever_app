@@ -144,8 +144,7 @@ class Renderer():
         add_vertical_space(1)
 
         # file uploader
-        pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=True)
-
+        pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
 
         add_vertical_space(1)
 
@@ -155,8 +154,8 @@ class Renderer():
                         'template' : st.session_state.prompt_template,
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap},
-                        vectordb = st.session_state.embedfunc,
                         embeddings = st.session_state.vectorstore,
+                        vectordb = st.session_state.embedfunc,
                         )
             self.elem_word_count_dashboard()
             self.elem_ask()
