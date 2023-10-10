@@ -41,7 +41,7 @@ class Retriever():
             case "ChromaDB":
                 return Chroma.from_texts()
             case "BagelDB":
-                return Bagel.from_texts(cluster_name="db", raw_text)
+                return Bagel.from_texts(cluster_name="db")
 
     def get_embedding_function(self, embedding_function, cfg):
         match embedding_function:
