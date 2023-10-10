@@ -35,6 +35,8 @@ class Retriever():
                 return SentenceTransformerEmbeddings(model_name=cfg['SENTENCE_TRANSFORMER_MODEL'])
 
     def get_retriever(self, cfg, state, store_type, embedding_function):
+        print("store_type :", store_type)
+        print("embedding_function :", embedding_function)
         embedding_function = self.get_embedding_function(self, embedding_function=embedding_function, cfg=cfg)
         db = self.construct_db(self, store_type=store_type, embeddings=embedding_function)
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
