@@ -52,6 +52,7 @@ class Retriever():
 
 
     def get_retriever(self):
+        return None
 
 
 
