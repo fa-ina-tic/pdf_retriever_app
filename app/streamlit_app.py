@@ -45,7 +45,7 @@ class Renderer():
         self.utils = Utils(self.chain_cfg)
         if 'results' not in st.session_state:
             st.session_state['results'] = []
-
+        
 
     def print_result(self, result):
         st.subheader("답변")
@@ -75,6 +75,11 @@ class Renderer():
 
     def elem_retriever_settings(self):
         with st.expander("Retriever 설정", expanded=True):
+            if 'embedfunc' not in st.session_state:
+                st.session_state['embedfunc'] = "OpenAI"
+            if 'vectordb' not in st.session_state:
+                st.session_state['vectordb'] = "FAISS"
+
             with st.form("form"):
                 # settings
                 st.slider(label="Chunk 사이즈 (단위 : 토큰)",
@@ -91,15 +96,18 @@ class Renderer():
                             value=const.DEFAULT_PROMPT_TEMPLATE,
                             height=500,
                             key="prompt_template")
-                st.selectbox(label="Embedding Function",
+                user_embeddings = st.selectbox(label="Embedding Function",
                              options=["OpenAI", "Elasticsearch", "SentenceTransformers"],
                              key="embedfunc")
-                st.selectbox(label="Vectorstore",
+                user_vectorstore = st.selectbox(label="Vectorstore",
                             options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
                             key="vectorstore")
 
-                st.form_submit_button("변경")
+                submit_button = st.form_submit_button("변경")
 
+            if submit_button:
+                st.session_state.embedfunc = user_embeddings
+                st.session_state.vectordb = user_vectorstore
 
     def elem_word_count_dashboard(self):
         st.markdown("글자 수 (단위: 토큰 / 최대: 4097)")
