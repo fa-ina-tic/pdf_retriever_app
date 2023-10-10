@@ -46,6 +46,7 @@ class Chain():
 
         # db/embedding을 선택할 수 있도록
         retriever = Retriever.get_retriever(
+            _self,
             cfg = _self.cfg, 
             state = state, 
             store_type = _self.vectordb, 
