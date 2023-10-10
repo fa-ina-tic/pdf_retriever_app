@@ -91,10 +91,10 @@ class Renderer():
                             value=const.DEFAULT_PROMPT_TEMPLATE,
                             height=500,
                             key="prompt_template")
-                embedding_option = st.selectbox(label="Embedding Function",
+                st.selectbox(label="Embedding Function",
                              options=["OpenAI", "Elasticsearch", "SentenceTransformers"],
                              key="embedfunc")
-                vectorstore_option = st.selectbox(label="Vectorstore",
+                st.selectbox(label="Vectorstore",
                             options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
                             key="vectorstore")
 
@@ -155,8 +155,8 @@ class Renderer():
                         'template' : st.session_state.prompt_template,
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap},
-                        store_type = vectorstore_option,
-                        embeddings = embedding_option,
+                        store_type = st.session_state.embedfunc,
+                        embeddings = st.session_state.vectorstore,
                         )
             self.elem_word_count_dashboard()
             self.elem_ask()
