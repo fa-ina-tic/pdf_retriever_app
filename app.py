@@ -177,10 +177,10 @@ class Renderer():
                             value=const.DEFAULT_PROMPT_TEMPLATE,
                             height=500,
                             key="prompt_template")
-                st.selectbox(label="Embedding Function",
+                embedding_option = st.selectbox(label="Embedding Function",
                              options=["OpenAI", "Elasticsearch", "SentenceTransformers"],
                              key="embedfunc")
-                st.selectbox(label="Vectorstore",
+                vectorstore_option = st.selectbox(label="Vectorstore",
                             options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
                             key="vectorstore")
 
