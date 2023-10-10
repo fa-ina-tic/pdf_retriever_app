@@ -20,101 +20,14 @@ from langchain.embeddings.elasticsearch import ElasticsearchEmbeddings
 from langchain.text_splitter import CharacterTextSplitter, TokenTextSplitter
 
 # vectorstores
-from langchain.vectorstores import FAISS
+from langchain.vectorstores import FAISS, Chroma, Bagel
 from langchain.document_loaders import TextLoader
 
 import streamlit as st
 from streamlit_extras.add_vertical_space import add_vertical_space
 from PyPDF2 import PdfReader
 
-import constants as const
-
-
-class Retriever():
-    def __init__(self):
-        pass
-
-    def construct_db(self, store_type, raw_text, embedding_function):
-        match store_type:
-            case "FAISS":
-                return FAISS.from_texts()
-            case "ChromaDB":
-                return Chroma.from_texts()
-            case "BagelDB":
-                return Bagel.from_texts(cluster_name="db")
-
-    def get_embedding_function(self, embedding_function, cfg):
-        match embedding_function:
-            case "OpenAI":
-                return OpenAIEmbeddings(model=cfg['OPEN_AI_MODEL'])
-            case "SentenceTransformers":
-                return SentenceTransformerEmbeddings(model_name=cfg['SENTENCE_TRANSFORMER_MODEL'])
-
-
-    def get_retriever(self):
-        return None
-
-
-
-
-class Chain():
-    def __init__(self, cfg, state):
-        self.cfg = cfg
-        self.embeddings = OpenAIEmbeddings()
-        self.rqa = self.init_rqa(state)
-
-
-    @st.cache_resource
-    def init_rqa(_self, state):
-        # read pdf file
-        pdf_reader = PdfReader(state['pdf'])
-        raw_text = ''
-        for i, page in enumerate(pdf_reader.pages):
-            text = page.extract_text()
-            if text:
-                raw_text += text
-
-        # make vector database
-        text_splitter = TokenTextSplitter(
-            chunk_size=state['chunk_size'],
-            chunk_overlap=state['chunk_overlap'],
-        )
-        texts = text_splitter.split_text(raw_text)
-
-        db = FAISS.from_texts(texts, _self.embeddings)
-        retriever = db.as_retriever(search_type="similarity", search_kwargs={'k':5})
-
-        MODEL = 'beomi/KoAlpaca'
-        llm = OpenAIChat(model=_self.cfg['MODEL'])
-        #llm = HuggingFaceHub(
-        #    repo_id=MODEL, model_kwargs={"temperature": 0, "max_length": 512}
-        #)
-
-        # make retriever gpt
-        rqa = RetrievalQA.from_chain_type(llm=llm,
-                                          chain_type=_self.cfg['CHAIN_TYPE'],
-                                          chain_type_kwargs={
-                                              "prompt" : PromptTemplate(
-                                                  template=state['template'],
-                                                  input_variables=["context", "question"],
-                                              ),
-                                          },
-                                          retriever=retriever,
-                                          return_source_documents=True)
-        return rqa
-
-
-    def ask(self, query):
-        return self.rqa(query)
-
-
-
-class Utils():
-    def __init__(self, cfg):
-        self.encoding = tiktoken.get_encoding(cfg['TIKTOKEN_ENCODING_NAME'])
-
-    def count_tokens(self, string):
-        return len(self.encoding.encode(string))
+import pdf_retriever_app.src.constants as const
 
 
 
@@ -237,11 +150,13 @@ class Renderer():
 
         if pdf:
             self.chain = Chain(self.chain_cfg,
-                        {'pdf' : pdf,
+                        state = {'pdf' : pdf,
                         'template' : st.session_state.prompt_template,
                         'chunk_size' : st.session_state.chunk_size,
-                        'chunk_overlap' : st.session_state.chunk_overlap})
-
+                        'chunk_overlap' : st.session_state.chunk_overlap},
+                        store_type = vectorstore_option,
+                        embeddings = embedding_option,
+                        )
             self.elem_word_count_dashboard()
             self.elem_ask()
 
