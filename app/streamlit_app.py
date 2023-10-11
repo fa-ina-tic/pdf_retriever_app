@@ -173,8 +173,8 @@ class Renderer():
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap,
                         'embeddings' : st.session_state.user_embeddings,
-                        'vectordb' : st.session_state.user_vectorstore,
-                        'api_key' : st.session_state.api_key
+                        'vectordb' : st.session_state.user_vectorstore
+                        # 'api_key' : st.session_state.api_key
                         }
                         )
             self.elem_word_count_dashboard()
