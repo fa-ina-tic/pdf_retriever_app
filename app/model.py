@@ -4,6 +4,7 @@ import yaml
 import threading
 import time
 import queue
+import streamlit as st
 
 # embeddings
 from langchain.embeddings import CohereEmbeddings, HuggingFaceEmbeddings, SentenceTransformerEmbeddings
@@ -24,12 +25,12 @@ class Retriever():
         match store_type:
             case "FAISS":
                 return FAISS.from_texts(raw_text, embedding_function)
-            # case "ChromaDB":
-            #     return Chroma.from_texts(raw_text, embedding_function)
+            case "ChromaDB":
+                return Chroma.from_texts(raw_text, embedding_function)
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
-            case "Elasticsearch":
-                return None
+            # case "Elasticsearch":
+            #     return None
             # case "Pinecone":
             #     return None
 
@@ -40,6 +41,12 @@ class Retriever():
                 return OpenAIEmbeddings()
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
+            case "ElasticSearch":
+                return ElasticsearchEmbeddings(model_id="maum_retriever",
+                                               es_cloud_name=st.secrets["ELASTIC_SEARCH"]["ES_CLOUD_ID"],
+                                               es_user = st.secrets["ELASTIC_SEARCH"]["ES_USER"],
+                                               es_password = st.secrets["ELASTIC_SEARCH"]["ES_PASSWORD"]
+                                               )
 
     def get_retriever(self, cfg, state, raw_text):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)

@@ -98,7 +98,7 @@ class Renderer():
                             height=500,
                             key="prompt_template")
                 user_embeddings = st.selectbox(label="Embedding Function",
-                             options=["OpenAI", "SentenceTransformers"],
+                             options=["OpenAI", "SentenceTransformers", "ElasticSearch"],
                              key="user_embeddings")
                 user_vectorstore = st.selectbox(label="Vectorstore",
                             options=["FAISS", "Elasticsearch"],
