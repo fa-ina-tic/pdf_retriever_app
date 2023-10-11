@@ -42,7 +42,7 @@ class Retriever():
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
             case "ElasticSearch":
-                return ElasticsearchEmbeddings(model_id="maum_retriever",
+                return ElasticsearchEmbeddings.from_credentials(model_id="maum_retriever",
                                                es_cloud_name=st.secrets["ELASTIC_SEARCH"]["ES_CLOUD_ID"],
                                                es_user = st.secrets["ELASTIC_SEARCH"]["ES_USER"],
                                                es_password = st.secrets["ELASTIC_SEARCH"]["ES_PASSWORD"]
