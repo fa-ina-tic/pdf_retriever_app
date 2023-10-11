@@ -101,6 +101,11 @@ class Renderer():
                 user_vectorstore = st.selectbox(label="Vectorstore",
                             options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
                             key="user_vectorstore")
+                
+                if st.session_state.user_embeddings = "OpenAI":
+                    st.text_area(label='OpenAI_API_KEY',
+                                 value=''
+                                 key="api_key")
 
                 submit_button = st.form_submit_button("변경")
 
@@ -165,7 +170,8 @@ class Renderer():
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap,
                         'embeddings' : st.session_state.user_embeddings,
-                        'vectordb' : st.session_state.user_vectorstore
+                        'vectordb' : st.session_state.user_vectorstore,
+                        'api_key' : st.session_state.api_key
                         }
                         )
             self.elem_word_count_dashboard()

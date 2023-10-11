@@ -33,15 +33,15 @@ class Retriever():
             case "Pinecone":
                 return None
 
-    def get_embedding_function(self, embedding_function, cfg):
+    def get_embedding_function(self, embedding_function, cfg, api_key):
         embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
-                return OpenAIEmbeddings(model="text-embedding-ada-002", openai_api_key = "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")
+                return OpenAIEmbeddings(model="text-embedding-ada-002", openai_api_key = api_key)
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
 
     def get_retriever(self, cfg, state, raw_text):
-        embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
+        embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg, api_key=state['api_key'])
         db = self.construct_db(store_type=state['vectordb'], embedding_function=embedding_function, raw_text=raw_text)
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
