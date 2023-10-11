@@ -49,8 +49,8 @@ class Renderer():
         #     st.session_state['user_embeddings'] = "OpenAI"
         # if 'user_vectorstore' not in st.session_state:
         #     st.session_state['user_vectorstore'] = "FAISS"
-        if 'api_key' not in st.session_state:
-            st.session_state['api_key'] = ''
+        # if 'api_key' not in st.session_state:
+        #     st.session_state['api_key'] = ''
         
 
     def print_result(self, result):
@@ -106,14 +106,15 @@ class Renderer():
                 
                 if st.session_state.user_embeddings == "OpenAI":
                     openai_api_key = st.text_area(label='OpenAI_API_KEY',
-                                 value='')
+                                 value='',
+                                 key="openai_api_key")
 
                 submit_button = st.form_submit_button("변경")
 
-            if submit_button:
+            # if submit_button:
             #     st.session_state.user_embeddings = user_embeddings
             #     st.session_state.user_vectorstore = user_vectorstore
-                st.session_state.api_key = openai_api_key
+                # st.session_state.api_key = openai_api_key
             
             st.write(f"You selected: {st.session_state.user_embeddings}")
             st.write(f"You selected: {st.session_state.user_vectorstore}")
