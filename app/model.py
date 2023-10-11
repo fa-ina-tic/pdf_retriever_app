@@ -35,6 +35,7 @@ class Retriever():
             #     return None
 
     def get_embedding_function(self, embedding_function, cfg):
+        
         embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
