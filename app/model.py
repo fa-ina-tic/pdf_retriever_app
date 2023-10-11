@@ -37,7 +37,7 @@ class Retriever():
         embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
-                return OpenAIEmbeddings(model="text-embedding-ada-002", openai_api_key = api_key)
+                return OpenAIEmbeddings()
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
 
