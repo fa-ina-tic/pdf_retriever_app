@@ -5,7 +5,7 @@ CHAIN:
   TIKTOKEN_ENCODING_NAME: "cl100k_base"
   EMBEDDING: "OpenAI"
 
-EMBEDDING_MODEL:
+EMBEDDING:
   OPEN_AI_MODEL: "text-embedding-ada-002"
   SENTENCE_TRANSFORMER_MODEL: "sentence-transformers/all-mpnet-base-v2"
 

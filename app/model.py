@@ -28,7 +28,7 @@ class Retriever():
                 return Bagel.from_texts(raw_text, embedding_function, cluster_name="db")
 
     def get_embedding_function(self, embedding_function, cfg):
-        embedding_cfg = cfg['EMBEDDING_MODEL']
+        embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
                 return OpenAIEmbeddings(model=embedding_cfg['OPEN_AI_MODEL'])
