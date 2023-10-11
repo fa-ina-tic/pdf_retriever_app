@@ -6,8 +6,9 @@ CHAIN:
   EMBEDDING: "OpenAI"
 
 EMBEDDING:
-  OPEN_AI_MODEL: "text-embedding-ada-002"
-  SENTENCE_TRANSFORMER_MODEL: "sentence-transformers/all-mpnet-base-v2"
+  OPEN_AI: "text-embedding-ada-002"
+  SENTENCE_TRANSFORMER: "all-mpnet-base-v2"
+  ELASTIC_SEARCH: ""
 
 UI:
   PAGE_TITLE: "maum PDF-GPT"

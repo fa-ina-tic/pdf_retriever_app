@@ -26,14 +26,18 @@ class Retriever():
                 return Chroma.from_texts(raw_text, embedding_function)
             case "BagelDB":
                 return Bagel.from_texts(raw_text, embedding_function, cluster_name="db")
+            case "Elasticsearch":
+                return None
+            case "Pinecone":
+                return None
 
     def get_embedding_function(self, embedding_function, cfg):
         embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
-                return OpenAIEmbeddings(model=embedding_cfg['OPEN_AI_MODEL'])
+                return OpenAIEmbeddings(model="text-embedding-ada-002")
             case "SentenceTransformers":
-                return SentenceTransformerEmbeddings(model_name=embedding_cfg['SENTENCE_TRANSFORMER_MODEL'])
+                return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
 
     def get_retriever(self, cfg, state):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
