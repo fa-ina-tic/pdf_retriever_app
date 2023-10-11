@@ -27,7 +27,7 @@ class Retriever():
             case "ChromaDB":
                 return Chroma.from_texts(raw_text, embedding_function)
             case "BagelDB":
-                return Bagel.from_texts(raw_text, embedding_function, cluster_name="db")
+                return Bagel.from_texts(cluster_name="db", texts=raw_text, embeddings=embedding_function)
             # case "Elasticsearch":
             #     return None
             # case "Pinecone":

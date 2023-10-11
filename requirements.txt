@@ -10,3 +10,4 @@ openai
 constants
 sentence-transformers
 betabageldb
+chromadb
