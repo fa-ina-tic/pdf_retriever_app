@@ -21,7 +21,7 @@ from model import Retriever
 
 
 class Chain(Retriever):
-    def __init__(self, cfg, state, embeddings, vectordb):
+    def __init__(self, cfg, state):
         self.cfg = cfg
         self.rqa = self.init_rqa(state)
 
