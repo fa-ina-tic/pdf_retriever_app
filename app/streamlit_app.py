@@ -98,10 +98,10 @@ class Renderer():
                             height=500,
                             key="prompt_template")
                 user_embeddings = st.selectbox(label="Embedding Function",
-                             options=["OpenAI", "Elasticsearch", "SentenceTransformers"],
+                             options=["OpenAI", "SentenceTransformers"],
                              key="user_embeddings")
                 user_vectorstore = st.selectbox(label="Vectorstore",
-                            options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
+                            options=["FAISS", "ChromaDB", "Elasticsearch"],
                             key="user_vectorstore")
 
                 submit_button = st.form_submit_button("변경")

@@ -28,10 +28,10 @@ class Retriever():
                 return Chroma.from_texts(raw_text, embedding_function)
             case "BagelDB":
                 return Bagel.from_texts(raw_text, embedding_function, cluster_name="db")
-            case "Elasticsearch":
-                return None
-            case "Pinecone":
-                return None
+            # case "Elasticsearch":
+            #     return None
+            # case "Pinecone":
+            #     return None
 
     def get_embedding_function(self, embedding_function, cfg):
         embedding_cfg = cfg['EMBEDDING']
