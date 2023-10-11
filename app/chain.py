@@ -23,6 +23,7 @@ from model import Retriever
 class Chain(Retriever):
     def __init__(self, cfg, state):
         self.cfg = cfg
+        self.state = state
         self.rqa = self.init_rqa(state)
 
     @st.cache_resource
@@ -46,9 +47,7 @@ class Chain(Retriever):
         retriever = Retriever.get_retriever(
             _self,
             cfg = _self.cfg, 
-            state = state, 
-            store_type = _self.vectordb, 
-            embedding_function = _self.embeddings,
+            state = _self.state
         )
 
         # db = FAISS.from_texts(texts, _self.embeddings)
