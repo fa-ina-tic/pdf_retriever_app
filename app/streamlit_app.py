@@ -45,7 +45,7 @@ class Renderer():
         self.utils = Utils(self.chain_cfg)
         if 'results' not in st.session_state:
             st.session_state['results'] = []
-        if 'user_embeddings' not in st.session_state:
+        # if 'user_embeddings' not in st.session_state:
         #     st.session_state['user_embeddings'] = "OpenAI"
         # if 'user_vectorstore' not in st.session_state:
         #     st.session_state['user_vectorstore'] = "FAISS"
