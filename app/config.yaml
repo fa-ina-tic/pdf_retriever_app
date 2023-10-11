@@ -5,6 +5,10 @@ CHAIN:
   TIKTOKEN_ENCODING_NAME: "cl100k_base"
   EMBEDDING: "OpenAI"
 
+EMBEDDING_MODEL:
+  OPEN_AI_MODEL: "text-embedding-ada-002"
+  SENTENCE_TRANSFORMER_MODEL: "sentence-transformers/all-mpnet-base-v2"
+
 UI:
   PAGE_TITLE: "maum PDF-GPT"
   PAGE_ICON: "random"
