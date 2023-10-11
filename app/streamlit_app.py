@@ -45,10 +45,10 @@ class Renderer():
         self.utils = Utils(self.chain_cfg)
         if 'results' not in st.session_state:
             st.session_state['results'] = []
-        if 'embedfunc' not in st.session_state:
-            st.session_state['embedfunc'] = "OpenAI"
-        if 'vectordb' not in st.session_state:
-            st.session_state['vectordb'] = "FAISS"
+        if 'user_embeddings' not in st.session_state:
+            st.session_state['user_embeddings'] = "OpenAI"
+        if 'user_vectorstore' not in st.session_state:
+            st.session_state['user_vectorstore'] = "FAISS"
         
 
     def print_result(self, result):
@@ -105,11 +105,11 @@ class Renderer():
                 submit_button = st.form_submit_button("변경")
 
             if submit_button:
-                st.session_state.embedfunc = user_embeddings
-                st.session_state.vectordb = user_vectorstore
+                st.session_state.user_embeddings = user_embeddings
+                st.session_state.user_vectorstore = user_vectorstore
             
-            st.write(f"You selected: {st.session_state.embedfunc}")
-            st.write(f"You selected: {st.session_state.vectordb}")
+            st.write(f"You selected: {st.session_state.user_embeddings}")
+            st.write(f"You selected: {st.session_state.user_vectorstore}")
 
     def elem_word_count_dashboard(self):
         st.markdown("글자 수 (단위: 토큰 / 최대: 4097)")
@@ -164,8 +164,8 @@ class Renderer():
                         'template' : st.session_state.prompt_template,
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap,
-                        'embeddings' : st.session_state.embedfunc,
-                        'vectordb' : st.session_state.vectordb
+                        'embeddings' : st.session_state.user_embeddings,
+                        'vectordb' : st.session_state.user_vectorstore
                         }
                         )
             self.elem_word_count_dashboard()
