@@ -55,7 +55,8 @@ class Chain(Retriever):
         # retriever = db.as_retriever(search_type="similarity", search_kwargs={'k':5})
 
         MODEL = 'beomi/KoAlpaca'
-        llm = OpenAIChat(model=_self.cfg['MODEL'])
+        llm = OpenAIChat(model=_self.cfg['MODEL'], openai_api_key="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
+")
         #llm = HuggingFaceHub(
         #    repo_id=MODEL, model_kwargs={"temperature": 0, "max_length": 512}
         #)
