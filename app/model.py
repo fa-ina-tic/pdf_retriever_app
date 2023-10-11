@@ -33,7 +33,7 @@ class Retriever():
             case "Pinecone":
                 return None
 
-    def get_embedding_function(self, embedding_function, cfg, api_key):
+    def get_embedding_function(self, embedding_function, cfg):
         embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
