@@ -19,6 +19,8 @@ class Retriever():
         pass
 
     def construct_db(self, store_type, raw_text, embedding_function):
+        if type(store_type) != str:
+            TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
             case "FAISS":
                 return FAISS.from_texts(raw_text, embedding_function)
