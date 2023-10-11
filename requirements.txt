@@ -9,3 +9,4 @@ faiss-cpu
 openai
 constants
 sentence-transformers
+betabageldb
