@@ -165,8 +165,8 @@ class Renderer():
                         'template' : st.session_state.prompt_template,
                         'chunk_size' : st.session_state.chunk_size,
                         'chunk_overlap' : st.session_state.chunk_overlap,
-                        'embeddings' : st.session_state.vectorstore,
-                        'vectordb' : st.session_state.embedfunc
+                        'embeddings' : st.session_state.embedfunc,
+                        'vectordb' : st.session_state.vectordb
                         }
                         )
             self.elem_word_count_dashboard()
