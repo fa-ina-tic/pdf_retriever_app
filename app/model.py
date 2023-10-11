@@ -24,12 +24,12 @@ class Retriever():
         match store_type:
             case "FAISS":
                 return FAISS.from_texts(raw_text, embedding_function)
-            case "ChromaDB":
-                return Chroma.from_texts(raw_text, embedding_function)
+            # case "ChromaDB":
+            #     return Chroma.from_texts(raw_text, embedding_function)
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
-            # case "Elasticsearch":
-            #     return None
+            case "Elasticsearch":
+                return None
             # case "Pinecone":
             #     return None
 

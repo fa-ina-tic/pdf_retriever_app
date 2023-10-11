@@ -101,7 +101,7 @@ class Renderer():
                              options=["OpenAI", "SentenceTransformers"],
                              key="user_embeddings")
                 user_vectorstore = st.selectbox(label="Vectorstore",
-                            options=["FAISS", "ChromaDB"],
+                            options=["FAISS", "Elasticsearch"],
                             key="user_vectorstore")
 
                 submit_button = st.form_submit_button("변경")
