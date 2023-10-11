@@ -47,7 +47,8 @@ class Chain(Retriever):
         retriever = Retriever.get_retriever(
             _self,
             cfg = _self.cfg, 
-            state = _self.state
+            state = _self.state,
+            raw_text=texts
         )
 
         # db = FAISS.from_texts(texts, _self.embeddings)
