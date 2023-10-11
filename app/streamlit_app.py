@@ -111,10 +111,10 @@ class Renderer():
 
                 submit_button = st.form_submit_button("변경")
 
-            if submit_button:
-                st.session_state.user_embeddings = user_embeddings
-                st.session_state.user_vectorstore = user_vectorstore
-                st.session_state.api_key = openai_api_key
+            # if submit_button:
+            #     st.session_state.user_embeddings = user_embeddings
+            #     st.session_state.user_vectorstore = user_vectorstore
+            #     st.session_state.api_key = openai_api_key
             
             st.write(f"You selected: {st.session_state.user_embeddings}")
             st.write(f"You selected: {st.session_state.user_vectorstore}")
