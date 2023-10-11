@@ -23,8 +23,6 @@ from model import Retriever
 class Chain(Retriever):
     def __init__(self, cfg, state, embeddings, vectordb):
         self.cfg = cfg
-        self.embeddings = embeddings
-        self.vectordb = vectordb
         self.rqa = self.init_rqa(state)
 
     @st.cache_resource
