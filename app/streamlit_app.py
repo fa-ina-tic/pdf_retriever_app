@@ -45,6 +45,10 @@ class Renderer():
         self.utils = Utils(self.chain_cfg)
         if 'results' not in st.session_state:
             st.session_state['results'] = []
+        if 'embedfunc' not in st.session_state:
+            st.session_state['embedfunc'] = "OpenAI"
+        if 'vectordb' not in st.session_state:
+            st.session_state['vectordb'] = "FAISS"
         
 
     def print_result(self, result):
@@ -75,11 +79,6 @@ class Renderer():
 
     def elem_retriever_settings(self):
         with st.expander("Retriever 설정", expanded=True):
-            if 'embedfunc' not in st.session_state:
-                st.session_state['embedfunc'] = "OpenAI"
-            if 'vectordb' not in st.session_state:
-                st.session_state['vectordb'] = "FAISS"
-
             with st.form("form"):
                 # settings
                 st.slider(label="Chunk 사이즈 (단위 : 토큰)",
