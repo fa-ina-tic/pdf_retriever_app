@@ -46,11 +46,11 @@ class Renderer():
         if 'results' not in st.session_state:
             st.session_state['results'] = []
         if 'user_embeddings' not in st.session_state:
-            st.session_state['user_embeddings'] = "OpenAI"
-        if 'user_vectorstore' not in st.session_state:
-            st.session_state['user_vectorstore'] = "FAISS"
-        if 'api_key' not in st.session_state:
-            st.session_state['api_key'] = ''
+        #     st.session_state['user_embeddings'] = "OpenAI"
+        # if 'user_vectorstore' not in st.session_state:
+        #     st.session_state['user_vectorstore'] = "FAISS"
+        # if 'api_key' not in st.session_state:
+        #     st.session_state['api_key'] = ''
         
 
     def print_result(self, result):
