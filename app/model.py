@@ -43,5 +43,5 @@ class Retriever():
 
     def get_retriever(self, cfg, state):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
-        db = self.construct_db(store_type=state['vectordb'], embeddings=embedding_function)
+        db = self.construct_db(store_type=state['vectordb'], embedding_function=embedding_function)
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
