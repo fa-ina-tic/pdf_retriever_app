@@ -102,9 +102,9 @@ class Renderer():
                             options=["FAISS", "ChromaDB", "Elasticsearch", "Pinecone", "BagelDB"],
                             key="user_vectorstore")
                 
-                if st.session_state.user_embeddings = "OpenAI":
+                if st.session_state.user_embeddings == "OpenAI":
                     st.text_area(label='OpenAI_API_KEY',
-                                 value=''
+                                 value='',
                                  key="api_key")
 
                 submit_button = st.form_submit_button("변경")
