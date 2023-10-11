@@ -18,7 +18,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(store_type, raw_text, embedding_function):
+    def construct_db(self, store_type, raw_text, embedding_function):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
@@ -43,5 +43,5 @@ class Retriever():
 
     def get_retriever(self, cfg, state):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
-        db = self.construct_db(self, store_type=state['vectordb'], embeddings=embedding_function)
+        db = self.construct_db(store_type=state['vectordb'], embeddings=embedding_function)
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
