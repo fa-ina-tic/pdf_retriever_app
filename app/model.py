@@ -18,14 +18,14 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, embeddings):
+    def construct_db(self, store_type, raw_text, embedding_function):
         match store_type:
             case "FAISS":
-                return FAISS.from_texts()
+                return FAISS.from_texts(raw_text, embedding_function)
             case "ChromaDB":
-                return Chroma.from_texts()
+                return Chroma.from_texts(raw_text, embedding_function)
             case "BagelDB":
-                return Bagel.from_texts(cluster_name="db")
+                return Bagel.from_texts(raw_text, embedding_function, cluster_name="db")
 
     def get_embedding_function(self, embedding_function, cfg):
         match embedding_function:
@@ -34,7 +34,7 @@ class Retriever():
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name=cfg['SENTENCE_TRANSFORMER_MODEL'])
 
-    def get_retriever(self, cfg, state, store_type, embedding_function):
-        embedding_function = self.get_embedding_function(self, embedding_function=embedding_function, cfg=cfg)
-        db = self.construct_db(self, store_type=store_type, embeddings=embedding_function)
+    def get_retriever(self, cfg, state):
+        embedding_function = self.get_embedding_function(embedding_function=state.embeddings, cfg=cfg)
+        db = self.construct_db(self, store_type=state.vectorstore, embeddings=embedding_function)
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
