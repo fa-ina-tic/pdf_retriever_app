@@ -18,7 +18,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, raw_text, embedding_function):
+    def construct_db(store_type, raw_text, embedding_function):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
