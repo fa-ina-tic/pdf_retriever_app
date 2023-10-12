@@ -152,13 +152,10 @@ class Renderer():
         # file uploader
         pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
         add_vertical_space(1)
-        file_name = Path(pdf.name).stem
-        st.markdown(f"{file_name}")
 
         if pdf:
             self.chain = Chain(self.chain_cfg,
                         state = {'pdf' : pdf,
-                                 'file_name' : file_name,
                                 'template' : st.session_state.prompt_template,
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
