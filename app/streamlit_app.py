@@ -97,14 +97,14 @@ class Renderer():
                             value=const.DEFAULT_PROMPT_TEMPLATE,
                             height=500,
                             key="prompt_template")
-                user_embeddings = st.selectbox(label="Embedding Function",
-                             options=["OpenAI", "SentenceTransformers", "ElasticSearch"],
+                st.selectbox(label="Embedding Function",
+                             options=["OpenAI", "SentenceTransformers"],
                              key="user_embeddings")
-                user_vectorstore = st.selectbox(label="Vectorstore",
-                            options=["FAISS", "Elasticsearch"],
+                st.selectbox(label="Vectorstore",
+                            options=["FAISS", "ChromaDB", "Elasticsearch"],
                             key="user_vectorstore")
 
-                submit_button = st.form_submit_button("변경")
+                st.form_submit_button("변경")
 
     def elem_word_count_dashboard(self):
         st.markdown("글자 수 (단위: 토큰 / 최대: 4097)")

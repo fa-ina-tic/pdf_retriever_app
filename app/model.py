@@ -9,10 +9,10 @@ import streamlit as st
 # embeddings
 from langchain.embeddings import CohereEmbeddings, HuggingFaceEmbeddings, SentenceTransformerEmbeddings
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.embeddings.elasticsearch import ElasticsearchEmbeddings
+# from langchain.embeddings.elasticsearch import ElasticsearchEmbeddings
 
 # vectorstores
-from langchain.vectorstores import FAISS, Chroma, Bagel
+from langchain.vectorstores import FAISS, Chroma, ElasticsearchStore
 from langchain.document_loaders import TextLoader
 
 class Retriever():
@@ -26,7 +26,11 @@ class Retriever():
             case "FAISS":
                 return FAISS.from_texts(raw_text, embedding_function)
             case "ChromaDB":
-                return Chroma.from_texts(raw_text, embedding_function)
+                return Chroma("langchain_store").from_texts(raw_text, embedding_function)
+            case "ElasticSearch":
+                return ElasticsearchStore(
+                    index_name = "text_index"
+                ).from_text(raw_text, embedding_function)
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
             # case "Elasticsearch":
@@ -42,13 +46,8 @@ class Retriever():
                 return OpenAIEmbeddings()
             case "SentenceTransformers":
                 return SentenceTransformerEmbeddings(model_name="all-mpnet-base-v2")
-            case "ElasticSearch":
-                return ElasticsearchEmbeddings()
-                                            #     .from_credentials(model_id="maum_retriever",
-                                            #    es_cloud_id=st.secrets["ELASTIC_SEARCH"]["ES_CLOUD_ID"],
-                                            #    es_user = st.secrets["ELASTIC_SEARCH"]["ES_USER"],
-                                            #    es_password = st.secrets["ELASTIC_SEARCH"]["ES_PASSWORD"]
-                                            #    )
+            # case "ElasticSearch":
+            #     return ElasticsearchEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
     def get_retriever(self, cfg, state, raw_text):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
