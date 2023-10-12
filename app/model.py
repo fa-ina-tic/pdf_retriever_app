@@ -28,9 +28,7 @@ class Retriever():
             case "ChromaDB":
                 return Chroma("langchain_store").from_texts(raw_text, embedding_function)
             case "ElasticSearch":
-                return ElasticsearchStore(
-                    index_name = "text_index"
-                ).from_text(raw_text, embedding_function)
+                return ElasticsearchStore().from_text(raw_text, embedding_function)
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
             # case "Elasticsearch":
