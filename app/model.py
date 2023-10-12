@@ -56,8 +56,8 @@ class Retriever():
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
         db = self.construct_db(
             store_type=state['vectordb'], 
-            embedding_function=embedding_function, 
             raw_text=raw_text,
-            index_name=state['file_name']
+            index_name=state['file_name'],
+            embedding_function=embedding_function
             )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})

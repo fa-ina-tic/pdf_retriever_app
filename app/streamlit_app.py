@@ -150,7 +150,7 @@ class Renderer():
 
         # file uploader
         pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
-
+        st.markdone(f"{pdf.name}")
         add_vertical_space(1)
 
         if pdf:
@@ -161,9 +161,7 @@ class Renderer():
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
                                 'embeddings' : st.session_state.user_embeddings,
-                                'vectordb' : st.session_state.user_vectorstore,
-                                'es_cloud_id' : st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
-                                'es_api_key' : st.secrets['ELASTIC_SEARCH']['ES_API_KEY']
+                                'vectordb' : st.session_state.user_vectorstore
                                 }
                         )
             self.elem_word_count_dashboard()
