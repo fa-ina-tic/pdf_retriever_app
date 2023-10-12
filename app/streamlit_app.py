@@ -156,7 +156,6 @@ class Renderer():
         if pdf:
             self.chain = Chain(self.chain_cfg,
                         state = {'pdf' : pdf,
-                                 'index_name':Path(pdf.name).stem,
                                 'template' : st.session_state.prompt_template,
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
