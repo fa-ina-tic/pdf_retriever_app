@@ -12,7 +12,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 # from langchain.embeddings.elasticsearch import ElasticsearchEmbeddings
 
 # vectorstores
-from langchain.vectorstores import FAISS, Chroma, ElasticsearchStore
+from langchain.vectorstores import FAISS, Chroma, ElasticVectorSearch
 from langchain.document_loaders import TextLoader
 
 class Retriever():
@@ -28,7 +28,7 @@ class Retriever():
             case "ChromaDB":
                 return Chroma("langchain_store").from_texts(raw_text, embedding_function)
             case "ElasticSearch":
-                return ElasticsearchStore().from_text(raw_text, embedding_function)
+                return ElasticVectorSearch().from_text(raw_text, embedding_function)
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
             # case "Elasticsearch":
