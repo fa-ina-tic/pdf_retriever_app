@@ -11,3 +11,4 @@ constants
 sentence-transformers
 betabageldb
 chromadb
+elasticsearch
