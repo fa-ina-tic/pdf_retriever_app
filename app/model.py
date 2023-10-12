@@ -57,7 +57,7 @@ class Retriever():
         db = self.construct_db(
             store_type=state['vectordb'], 
             raw_text=raw_text,
-            index_name=state['index_name']
+            index_name=state['index_name'],
             embedding_function=embedding_function
             )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
