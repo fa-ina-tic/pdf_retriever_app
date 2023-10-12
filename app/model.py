@@ -20,7 +20,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, raw_text, embedding_function, index_name=None):
+    def construct_db(self, store_type, raw_text, embedding_function, index_name=""):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
@@ -31,7 +31,7 @@ class Retriever():
             case "ElasticSearch":
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
-                    index_name = f"{index_name}",
+                    index_name = f"{index_name}_sampledata",
                     embedding = embedding_function,
                     es_cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
                     es_api_key = st.secrets['ELASTIC_SEARCH']['ES_API_KEY'])
