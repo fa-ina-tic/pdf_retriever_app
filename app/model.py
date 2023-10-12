@@ -20,7 +20,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, raw_text, embedding_function):
+    def construct_db(self, store_type, raw_text, embedding_function, index_name=''):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
@@ -31,7 +31,7 @@ class Retriever():
             case "ElasticSearch":
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
-                    index_name = "maumai_sampledata",
+                    index_name = index_name,
                     embedding = embedding_function,
                     es_cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
                     es_api_key = st.secrets['ELASTIC_SEARCH']['ES_API_KEY'])
@@ -57,6 +57,7 @@ class Retriever():
         db = self.construct_db(
             store_type=state['vectordb'], 
             raw_text=raw_text,
+            index_name=state['index_name']
             embedding_function=embedding_function
             )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
