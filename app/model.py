@@ -20,7 +20,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, raw_text, embedding_function):
+    def construct_db(self, store_type, raw_text, embedding_function, index_name=None, es_cloud_id=None, es_api_key=None):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
@@ -29,7 +29,13 @@ class Retriever():
             case "ChromaDB":
                 return Chroma("langchain_store").from_texts(raw_text, embedding_function)
             case "ElasticSearch":
-                return ElasticsearchStore.from_text(raw_text, embedding_function, index_name='test_index')
+                return ElasticsearchStore.from_texts(
+                    texts = raw_text,
+                    index_name = f"{index_name}",
+                    embedding = embedding_function,
+                    es_cloud_id = es_cloud_id,
+                    es_api_key = es_api_key
+                )
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
             # case "Elasticsearch":
@@ -50,5 +56,12 @@ class Retriever():
 
     def get_retriever(self, cfg, state, raw_text):
         embedding_function = self.get_embedding_function(embedding_function=state['embeddings'], cfg=cfg)
-        db = self.construct_db(store_type=state['vectordb'], embedding_function=embedding_function, raw_text=raw_text)
+        db = self.construct_db(
+            store_type=state['vectordb'], 
+            embedding_function=embedding_function, 
+            raw_text=raw_text,
+            index_name=state['file_name'],
+            es_cloud_id=state['es_cloud_id'],
+            es_api_key=state['es_api_key']
+            )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
