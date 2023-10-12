@@ -152,7 +152,7 @@ class Renderer():
         # file uploader
         pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
         add_vertical_space(1)
-        file_name = Path(pdf).stem
+        file_name = Path(pdf.name).stem
         st.markdown(f"{file_name}")
 
         if pdf:
