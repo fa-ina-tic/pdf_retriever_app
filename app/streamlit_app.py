@@ -152,6 +152,7 @@ class Renderer():
         # file uploader
         pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
         add_vertical_space(1)
+        st.markdown(f"{Path(pdf).stem}")
 
         if pdf:
             self.chain = Chain(self.chain_cfg,
