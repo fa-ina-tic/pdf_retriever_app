@@ -150,8 +150,6 @@ class Renderer():
 
         # file uploader
         pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
-        st.markdown(f"{pdf.name}")
-        st.markdown(f"{pdf.name.split('.')[0]}")
         add_vertical_space(1)
 
         if pdf:
