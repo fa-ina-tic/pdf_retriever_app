@@ -12,7 +12,8 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 # from langchain.embeddings.elasticsearch import ElasticsearchEmbeddings
 
 # vectorstores
-from langchain.vectorstores import FAISS, Chroma, ElasticsearchStore
+from langchain.vectorstores import FAISS, Chroma
+from langchain.vectorstores.elasticsearch import ElasticsearchStore
 from langchain.document_loaders import TextLoader
 
 class Retriever():
