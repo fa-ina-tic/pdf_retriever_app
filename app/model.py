@@ -31,7 +31,7 @@ class Retriever():
             case "ElasticSearch":
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
-                    index_name = f"maumai_sampledata",
+                    index_name = "maumai_sampledata",
                     embedding = embedding_function,
                     es_cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
                     es_api_key = st.secrets['ELASTIC_SEARCH']['ES_API_KEY'])
@@ -57,7 +57,6 @@ class Retriever():
         db = self.construct_db(
             store_type=state['vectordb'], 
             raw_text=raw_text,
-            index_name=state['file_name'],
             embedding_function=embedding_function
             )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
