@@ -20,7 +20,7 @@ class Retriever():
     def __init__(self):
         pass
 
-    def construct_db(self, store_type, raw_text, embedding_function, index_name=None, es_cloud_id=None, es_api_key=None):
+    def construct_db(self, store_type, raw_text, embedding_function, index_name=None):
         if type(store_type) != str:
             TypeError(f'store type should be string, now {type(store_type)}')
         match store_type:
@@ -33,9 +33,8 @@ class Retriever():
                     texts = raw_text,
                     index_name = f"{index_name}",
                     embedding = embedding_function,
-                    es_cloud_id = es_cloud_id,
-                    es_api_key = es_api_key
-                )
+                    es_cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
+                    es_api_key = st.secrets['ELASTIC_SEARCH']['ES_API_KEY'])
             # case "BagelDB":
             #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
             # case "Elasticsearch":
@@ -44,8 +43,7 @@ class Retriever():
             #     return None
 
     def get_embedding_function(self, embedding_function, cfg):
-        
-        embedding_cfg = cfg['EMBEDDING']
+        # embedding_cfg = cfg['EMBEDDING']
         match embedding_function:
             case "OpenAI":
                 return OpenAIEmbeddings()
@@ -60,8 +58,6 @@ class Retriever():
             store_type=state['vectordb'], 
             embedding_function=embedding_function, 
             raw_text=raw_text,
-            index_name=state['file_name'],
-            es_cloud_id=state['es_cloud_id'],
-            es_api_key=state['es_api_key']
+            index_name=state['file_name']
             )
         return db.as_retriever(search_type="similarity", search_kwargs={'k':5})
