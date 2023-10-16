@@ -153,23 +153,15 @@ class Renderer():
         pdfs = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=True)
         add_vertical_space(1)
 
-        def merge_pdf(pdfs):
-            merger = PdfMerger()
-            for pdf in pdfs:
-                merger.append(pdf)
-            return merger
-
         if pdfs:
-            merged_pdf = merge_pdf(pdfs)
-            _state = {'pdf' : merged_pdf,
+            self.chain = Chain(self.chain_cfg,
+                        state = {'pdfs' : pdfs,
                                 'template' : st.session_state.prompt_template,
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
                                 'embeddings' : st.session_state.user_embeddings,
                                 'vectordb' : st.session_state.user_vectorstore
                                 }
-            self.chain = Chain(self.chain_cfg,
-                        state = _state
                         )
             self.elem_word_count_dashboard()
             self.elem_ask()

@@ -29,12 +29,14 @@ class Chain(Retriever):
     @st.cache_resource
     def init_rqa(_self, state):
         # read pdf file
-        pdf_reader = PdfReader(state['pdf'])
         raw_text = ''
-        for i, page in enumerate(pdf_reader.pages):
-            text = page.extract_text()
-            if text:
-                raw_text += text
+        for pdf in state['pdfs']:
+            pdf_reader = PdfReader(pdf)
+            # raw_text = ''
+            for i, page in enumerate(pdf_reader.pages):
+                text = page.extract_text()
+                if text:
+                    raw_text += text
 
         # make vector database
         text_splitter = TokenTextSplitter(
