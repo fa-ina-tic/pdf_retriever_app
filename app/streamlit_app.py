@@ -26,7 +26,7 @@ from langchain.document_loaders import TextLoader
 
 import streamlit as st
 from streamlit_extras.add_vertical_space import add_vertical_space
-from PyPDF2 import PdfReader
+from PyPDF2 import PdfReader, PdfMerger
 
 import constants as const
 from chain import Chain
@@ -150,12 +150,19 @@ class Renderer():
         add_vertical_space(1)
 
         # file uploader
-        pdf = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=False)
+        pdfs = st.file_uploader("PDF 파일을 업로드하세요", type='pdf', accept_multiple_files=True)
         add_vertical_space(1)
 
-        if pdf:
+        def merge_pdf(pdfs):
+            merger = PdfMerger()
+            for pdf in pdfs:
+                merger.append(pdf)
+            return merger
+
+        if pdfs:
+            merged_pdf = merge_pdf(pdfs)
             self.chain = Chain(self.chain_cfg,
-                        state = {'pdf' : pdf,
+                        state = {'pdf' : merged_pdf,
                                 'template' : st.session_state.prompt_template,
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
