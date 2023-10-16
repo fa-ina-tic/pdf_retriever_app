@@ -161,14 +161,15 @@ class Renderer():
 
         if pdfs:
             merged_pdf = merge_pdf(pdfs)
-            self.chain = Chain(self.chain_cfg,
-                        state = {'pdf' : merged_pdf,
+            _state = {'pdf' : merged_pdf,
                                 'template' : st.session_state.prompt_template,
                                 'chunk_size' : st.session_state.chunk_size,
                                 'chunk_overlap' : st.session_state.chunk_overlap,
                                 'embeddings' : st.session_state.user_embeddings,
                                 'vectordb' : st.session_state.user_vectorstore
                                 }
+            self.chain = Chain(self.chain_cfg,
+                        state = _state
                         )
             self.elem_word_count_dashboard()
             self.elem_ask()
