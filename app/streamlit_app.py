@@ -136,16 +136,6 @@ class Renderer():
                 st.success("ChatGPT 답변 완료")
                 self.print_result(result)
 
-
-    def create_sidebar(self):
-        with st.sidebar:
-            st.title("PDF Retriever")
-            st.markdown("## About"\
-                        "PDF chatbot from [maum.ai](https://maum.ai)")
-
-            add_vertical_space(3)
-
-
     def create_ask_tab(self):
         add_vertical_space(1)
 
