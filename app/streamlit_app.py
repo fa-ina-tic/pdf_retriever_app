@@ -182,7 +182,6 @@ class Renderer():
 
 def main(cfg):
     renderer = Renderer(cfg)
-    renderer.create_sidebar()
     renderer.create_body()
 
 
