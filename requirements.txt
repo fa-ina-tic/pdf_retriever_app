@@ -6,7 +6,7 @@ PyPDF2==3.0.1
 streamlit-extras==0.3.4
 python-dotenv
 faiss-cpu
-openai
+openai==0.28.1
 constants
 sentence-transformers
 betabageldb
