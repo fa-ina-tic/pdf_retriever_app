@@ -34,9 +34,9 @@ class Retriever():
                         cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
                         api_key= st.secrets['ELASTIC_SEARCH']['ES_API_KEY']
                     )
-                index_exists = es.indices.exists(index='maumai_retriever')
-                if index_exists:
-                    es.indices.delete(index='maumai_retriever')
+                # index_exists = es.indices.exists(index='maumai_retriever')
+                # if index_exists:
+                #     es.indices.delete(index='maumai_retriever')
 
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
