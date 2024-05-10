@@ -34,8 +34,8 @@ class Retriever():
                         hosts = [st.secrets["ELASTIC_SEARCH"]["URL"]],
                         http_auth= (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PASSWORD"])
                     )
-                es.delete_by_query(index='maumai_retriever'
-                                   body=={'query':{'match_all':{}}})
+                es.delete_by_query(index='maumai_retriever',
+                                   body={'query':{'match_all':{}}})
 
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
