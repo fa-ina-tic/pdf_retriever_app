@@ -31,25 +31,18 @@ class Retriever():
                 return Chroma("langchain_store").from_texts(raw_text, embedding_function)
             case "ElasticSearch":
                 es = Elasticsearch(
-                        cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
-                        api_key= st.secrets['ELASTIC_SEARCH']['ES_API_KEY']
+                        hosts = [st.secrets["ELASTIC_SEARCH"]["URL"]],
+                        http_auth= (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PASSWORD"])
                     )
-                # index_exists = es.indices.exists(index='maumai_retriever')
-                # if index_exists:
-                #     es.indices.delete(index='maumai_retriever')
+                es.delete_by_query(index='maumai_retriever'
+                                   body=={'query':{'match_all':{}}})
 
                 return ElasticsearchStore.from_texts(
                     texts = raw_text,
-                    index_name = "maumai_retriever",
+                    index_name = "poc-retriever",
                     embedding = embedding_function,
-                    es_cloud_id = st.secrets['ELASTIC_SEARCH']['ES_CLOUD_ID'],
-                    es_api_key = st.secrets['ELASTIC_SEARCH']['ES_API_KEY'])
-            # case "BagelDB":
-            #     return Bagel.from_texts(cluster_name="bageldb", texts=raw_text)
-            # case "Elasticsearch":
-            #     return None
-            # case "Pinecone":
-            #     return None
+                    hosts = [st.secrets['ELASTIC_SEARCH']['URL']],
+                    http_auth = (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PASSWORD"])
 
     def get_embedding_function(self, embedding_function, cfg):
         # embedding_cfg = cfg['EMBEDDING']

@@ -84,6 +84,9 @@ class Renderer():
         with st.expander("Retriever 설정", expanded=True):
             with st.form("form"):
                 # settings
+                st.text_area(label="OpenAI API KEY",
+                             value="",
+                             key="openai_key")
                 st.slider(label="Chunk 사이즈 (단위 : 토큰)",
                             step=self.ui_cfg['DEFAULT_SLIDER_STEPS'],
                             value=self.ui_cfg['DEFAULT_CHUNK_SIZE'],
@@ -99,7 +102,7 @@ class Renderer():
                             height=500,
                             key="prompt_template")
                 st.selectbox(label="Embedding Function",
-                             options=["OpenAI", "SentenceTransformers"],
+                             options=["SentenceTransformers"],
                              key="user_embeddings")
                 st.selectbox(label="Vectorstore",
                             options=["FAISS", "ChromaDB", "ElasticSearch"],
@@ -144,6 +147,7 @@ class Renderer():
         add_vertical_space(1)
 
         if pdfs:
+            os.environ["OPENAI_API_KEY"] = st.session_state.openai_key ## refresh api key when opening
             self.chain = Chain(self.chain_cfg,
                         state = {'pdfs' : pdfs,
                                 'template' : st.session_state.prompt_template,
