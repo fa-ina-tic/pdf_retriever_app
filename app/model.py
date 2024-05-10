@@ -32,7 +32,7 @@ class Retriever():
             case "ElasticSearch":
                 es = Elasticsearch(
                         hosts = [st.secrets["ELASTIC_SEARCH"]["URL"]],
-                        http_auth= (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PASSWORD"])
+                        http_auth= (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PW"])
                     )
                 es.delete_by_query(index='maumai_retriever',
                                    body={'query':{'match_all':{}}})
@@ -42,7 +42,7 @@ class Retriever():
                     index_name = "poc-retriever",
                     embedding = embedding_function,
                     hosts = [st.secrets['ELASTIC_SEARCH']['URL']],
-                    http_auth = (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PASSWORD"]))
+                    http_auth = (st.secrets["ELASTIC_SEARCH"]["ID"], st.secrets["ELASTIC_SEARCH"]["PW"]))
 
     def get_embedding_function(self, embedding_function, cfg):
         # embedding_cfg = cfg['EMBEDDING']
